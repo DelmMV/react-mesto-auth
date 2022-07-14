@@ -33,27 +33,48 @@ function App() {
 	const history = useHistory();
 	
 	useEffect(() => {
-		api.getInitialUser().then((userData) => {
-			setCurrentUser(userData)
-		}).catch((err) => console.log(err));
-		api.getInitialCards().then((cardsArray) => {
-			setCards(cardsArray.slice(0, 12))
-		}).catch((err) => console.log(err));
+		if (loggedIn) {
+			api
+					.getInitialUser()
+					.then((userData) => {
+						setCurrentUser(userData)
+					})
+					.catch((err) => {
+						console.log(err)
+					});
+			api
+					.getInitialCards()
+					.then((cardsArray) => {
+						setCards(cardsArray.slice(0, 12))
+					})
+					.catch((err) => {
+						console.log(err)
+					});
+		}
 	}, [loggedIn])
 	
 	
 	function handleCardLike(card) {
 		const isLiked = card.likes.some(i => i._id === currentUser._id);
-		api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-			setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-		}).catch((err) => console.log(err));
+		api
+				.changeLikeCardStatus(card._id, !isLiked)
+				.then((newCard) => {
+					setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+				})
+				.catch((err) => {
+					console.log(err)
+				});
 	}
 	
 	function handleCardDelete(card) {
-		
-		api.removeCard(card._id).then(() => {
-			setCards((item) => item.filter((c) => c._id !== card._id));
-		}).catch((err) => console.log(err));
+		api
+				.removeCard(card._id)
+				.then(() => {
+					setCards((item) => item.filter((c) => c._id !== card._id));
+				})
+				.catch((err) => {
+					console.log(err)
+				});
 	}
 	
 	function handleUpdateUser(items) {
@@ -69,20 +90,24 @@ function App() {
 	}
 	
 	function handleUpdateAvatar(data) {
-		api.updateAvatar(data).then((res) => {
-			setCurrentUser(res)
-		}).catch((err) => {
-			console.log(err);
-		});
+		api
+				.updateAvatar(data).then((res) => {
+					setCurrentUser(res)
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		closeAllPopups();
 	}
 	
 	function handleAddPlaceSubmit(data) {
-		api.addCard(data.name, data.link).then((res) => {
-			setCards([res, ...initialCards])
-		}).catch((err) => {
-			console.log(err);
-		});
+		api.
+				addCard(data.name, data.link).then((res) => {
+					setCards([res, ...initialCards])
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		closeAllPopups();
 	}
 	
