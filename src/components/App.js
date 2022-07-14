@@ -101,8 +101,8 @@ function App() {
 	}
 	
 	function handleAddPlaceSubmit(data) {
-		api.
-				addCard(data.name, data.link).then((res) => {
+		api
+				.addCard(data.name, data.link).then((res) => {
 					setCards([res, ...initialCards])
 				})
 				.catch((err) => {
