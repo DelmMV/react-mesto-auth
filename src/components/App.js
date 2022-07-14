@@ -12,11 +12,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
-
 import * as auth from "../utils/Auth";
 import {api} from '../utils/Api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
-
 
 function App() {
 	const [isEditAvatarPopupOpen, setIsAvatarPopup] = useState(false);
@@ -92,8 +90,8 @@ function App() {
 	function handleUpdateAvatar(data) {
 		api
 				.updateAvatar(data).then((res) => {
-					setCurrentUser(res)
-				})
+			setCurrentUser(res)
+		})
 				.catch((err) => {
 					console.log(err);
 				});
@@ -103,14 +101,13 @@ function App() {
 	function handleAddPlaceSubmit(data) {
 		api
 				.addCard(data.name, data.link).then((res) => {
-					setCards([res, ...initialCards])
-				})
+			setCards([res, ...initialCards])
+		})
 				.catch((err) => {
 					console.log(err);
 				});
 		closeAllPopups();
 	}
-	
 	
 	function handleClickEditProfile() {
 		setIsProfilePopup(true);
@@ -224,7 +221,7 @@ function App() {
 					<Route path="/sign-in">
 						<Login handleLogin={handleLogin}/>
 					</Route>
-					<Route>
+					<Route path='*'>
 						{loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
 					</Route>
 				</Switch>

@@ -13,30 +13,17 @@ function InfoTooltip({isOpen, onClose, isSuccess}) {
 							className="popup__btn-close"
 							onClick={onClose}
 					></button>
-					
-					{isSuccess ? (
-							<>
-								<img
-										className="popup__register-image"
-										alt="Вы успешно зарегистрировались!"
-										src={successIcon}
-								/>
-								<p className="popup__register-text">
-									Вы успешно зарегистрировались!
-								</p>
-							</>
-					) : (
-							<>
-								<img
-										className="popup__register-image"
-										alt="Что-то пошло не так! Попробуйте ещё раз."
-										src={failIcon}
-								/>
-								<p className="popup__register-text">
-									"Что-то пошло не так! Попробуйте ещё раз."
-								</p>
-							</>
-					)}
+					<img
+							className="popup__register-image"
+							alt="Вы успешно зарегистрировались!"
+							src={isSuccess ? successIcon : failIcon}
+					/>
+					<p className="popup__register-text">
+						{isSuccess
+								? "Вы успешно зарегистрировались!"
+								: "Что-то пошло не так! Попробуйте ещё раз."
+						}
+					</p>
 				</div>
 			</article>
 	);
